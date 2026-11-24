@@ -84,7 +84,7 @@ export const SQL = {
       MAX(end_date) FILTER (WHERE first=1) AS first_date,
       MAX(end_date) FILTER (WHERE last=1) AS latest_date
     FROM samples s JOIN cars c ON c.id=s.car_id WHERE first=1 OR last=1
-    GROUP BY s.car_id,c.id,c.name ORDER BY car`
+    GROUP BY s.car_id,c.id,c.name ORDER BY car`,
 };
 
 export function queryValues(report, p, homeIds = []) {

@@ -10,7 +10,9 @@ async function check(directory) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) await check(path);
     else if (entry.name.endsWith(".js")) {
-      const result = spawnSync(process.execPath, ["--check", path], { stdio: "inherit" });
+      const result = spawnSync(process.execPath, ["--check", path], {
+        stdio: "inherit",
+      });
       if (result.status !== 0) throw new Error(`Syntax check failed: ${path}`);
     }
   }
