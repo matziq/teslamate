@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#09111a" />
+    <meta
+      name="description"
+      content="Your TeslaMate driving and charging, at a glance."
+    />
+    <title>TeslaMate Mobile</title>
+    <link rel="icon" href="/mobile/icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/mobile/manifest.webmanifest" />
+    <link rel="stylesheet" href="/mobile/styles.css" />
+    <script type="module" src="/mobile/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="brand">TESLAMATE <span> / MOBILE</span></p>
+          <h1 id="title">Today</h1>
+        </div>
+        <label class="picker"
+          ><span class="sr-only">Vehicle</span
+          ><select id="car">
+            <option value="all">All vehicles</option>
+          </select></label
+        >
+      </header>
+      <main id="content" tabindex="-1">
+        <div id="status" role="status" aria-live="polite">
+          Loading reports...
+        </div>
+        <section id="today" aria-label="Today" class="view">
+          <div class="intro">
+            <div>
+              <p class="eyebrow">YOUR DAY IN MOTION</p>
+              <h2>At a glance</h2>
+            </div>
+            <span class="badge">UTC TODAY</span>
+          </div>
+          <div id="todayMetrics" class="metrics"></div>
+          <section class="panel">
+            <div class="heading">
+              <div>
+                <p class="eyebrow">ON THE ROAD</p>
+                <h2>Recent trips</h2>
+              </div>
+              <button class="link" data-go="trips">See all →</button>
+            </div>
+            <div id="recentTrips"></div>
+          </section>
+        </section>
+        <section id="trips" aria-label="Trips" class="view" hidden>
+          <div class="heading">
+            <div>
+              <p class="eyebrow">YOUR JOURNEYS</p>
+              <h2>Trip history</h2>
+            </div>
+          </div>
+          <div class="ranges" aria-label="Report period">
+            <button data-days="7">7 days</button
+            ><button data-days="30" class="selected" aria-pressed="true">
+              30 days</button
+            ><button data-days="90">90 days</button>
+          </div>
+          <div id="tripMetrics" class="metrics"></div>
+          <section id="tripList" class="panel"></section>
+        </section>
+        <section id="charging" aria-label="Charging" class="view" hidden>
+          <div class="heading">
+            <div>
+              <p class="eyebrow">POWERED UP</p>
+              <h2>Charging overview</h2>
+            </div>
+          </div>
+          <div id="chargeMetrics" class="metrics"></div>
+          <section class="panel">
+            <div class="heading">
+              <div>
+                <p class="eyebrow">CHARGE LOCATIONS</p>
+                <h2>Home vs other</h2>
+              </div>
+            </div>
+            <div id="chargeSplit" class="split"></div>
+            <p class="hint">
+              Home uses configured geofence IDs; other includes public and
+              unknown locations.
+            </p>
+          </section>
+          <section class="panel">
+            <div class="heading"><h2>Recent sessions</h2></div>
+            <div id="chargeList"></div>
+          </section>
+        </section>
+        <section id="trends" aria-label="Trends" class="view" hidden>
+          <div class="heading">
+            <div>
+              <p class="eyebrow">THE BIGGER PICTURE</p>
+              <h2>Driving trends</h2>
+            </div>
+          </div>
+          <section class="panel">
+            <h2>Efficiency & temperature</h2>
+            <p class="hint">
+              Distance divided by rated range used. Temperature is context, not
+              a causal diagnosis.
+            </p>
+            <div id="daily"></div>
+          </section>
+          <div id="trendMetrics" class="metrics"></div>
+          <section class="panel">
+            <h2>Battery range signal</h2>
+            <p class="hint">
+              Estimated full rated range from charging sessions ending at 50% or
+              above. Not a battery diagnostic.
+            </p>
+            <div id="battery"></div>
+          </section>
+        </section>
+      </main>
+      <nav class="bottom" aria-label="Primary">
+        <button data-view="today" class="active" aria-current="page">
+          <span aria-hidden="true">⌂</span>Today
+        </button>
+        <button data-view="trips">
+          <span aria-hidden="true">↗</span>Trips
+        </button>
+        <button data-view="charging">
+          <span aria-hidden="true">ϟ</span>Charging
+        </button>
+        <button data-view="trends">
+          <span aria-hidden="true">▥</span>Trends
+        </button>
+      </nav>
+    </div>
+    <noscript>JavaScript is required to show reports.</noscript>
+  </body>
+</html>
