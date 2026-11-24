@@ -1,0 +1,31 @@
+services:
+  mobile:
+    build:
+      context: ./mobile
+    image: teslamate-mobile:1.0.0
+    restart: unless-stopped
+    environment:
+      PORT: "4000"
+      TESLAMATE_MOBILE_DEMO: "false"
+      PGHOST: database
+      PGPORT: "5432"
+      PGDATABASE: teslamate
+      PGUSER: teslamate_mobile
+      PGPASSWORD: ${TESLAMATE_MOBILE_DB_PASSWORD:?Set TESLAMATE_MOBILE_DB_PASSWORD in the project .env}
+      HOME_GEOFENCE_IDS: ${TESLAMATE_MOBILE_HOME_GEOFENCE_IDS:-}
+      DB_POOL_MAX: "4"
+      MAX_RANGE_DAYS: "366"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [default]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: teslamate_default
+      traefik.http.routers.teslamate-mobile.rule: "Host(`teslamate1111.westus.cloudapp.azure.com`) && (Path(`/mobile`) || PathPrefix(`/mobile/`))"
+      traefik.http.routers.teslamate-mobile.entrypoints: websecure
+      traefik.http.routers.teslamate-mobile.tls.certresolver: tmhttpchallenge
+      traefik.http.routers.teslamate-mobile.middlewares: teslamate-auth@docker
+      traefik.http.services.teslamate-mobile.loadbalancer.server.port: "4000"
